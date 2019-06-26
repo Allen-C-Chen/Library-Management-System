@@ -12,7 +12,10 @@ public class testBookCSV {
 		bookRepo.loadBookDataBase();
 		System.out.println(bookRepo.printBookList());
 		
-		//testing
+		System.out.println(bookRepo.retrieveBook("book10").getBookName());
+		bookRepo.modifyBook("book10", "bookten");
+		System.out.println(bookRepo.retrieveBook("bookten").getBookName());
+
 //		System.out.println(bookRepo.printAuthorList());
 //		System.out.println(bookRepo.printPublisherList());
 	}

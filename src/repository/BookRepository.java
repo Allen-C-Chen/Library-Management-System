@@ -63,6 +63,23 @@ public class BookRepository {
 		books.add(new Book(idBookCount, bookName, idAuthorCount, idPublisherCount));
 		
 	}
+	public Book retrieveBook(String bookName) {
+		for(int i = 0; i < books.size(); i ++) {
+			if(books.get(i).getBookName().equals(bookName)) {
+				return books.get(i);
+			}
+		}
+		return null;
+	}
+	public void modifyBook(String bookName, String newBookName) {
+		for(int i = 0; i < books.size(); i ++) {
+			if(books.get(i).getBookName().equals(bookName)) {
+				books.get(i).setBookName(newBookName);
+			}
+		}
+
+	}
+
 	
 	//author functions
 	public void loadAuthorDataBase() throws IOException {
@@ -93,8 +110,25 @@ public class BookRepository {
 	}
 	
 	public void addAuthorName(String authorName) {
-		
+		//not sure if needed
 	}	
+	public Author retrieveAuthor(String authorName) {
+		for(int i = 0; i < authors.size(); i ++) {
+			if(authors.get(i).getName().equals(authorName)) {
+				return authors.get(i);
+			}
+		}
+		return null;
+	}
+	public void modifyAuthor(String authorName, String newAuthorName) {
+		for(int i = 0; i < authors.size(); i ++) {
+			if(authors.get(i).getName().equals(authorName)) {
+				authors.get(i).setName(newAuthorName);
+			}
+		}
+
+	}
+	
 	public String printAuthorList() {
 		String str = "";
 		for(int i =0 ; i < authors.size(); i ++) {
@@ -128,21 +162,37 @@ public class BookRepository {
 			csvWriter.append(rowData.getPublisherName() + ",");
 		    csvWriter.append("\n");
 		}
-
 	}
+	public void addPublisher(String publisherName) {
+		
+	}
+	public Author retrievePublisher(String publisherName) {
+		for(int i = 0; i < authors.size(); i ++) {
+			if(authors.get(i).getName().equals(publisherName)) {
+				return authors.get(i);
+			}
+		}
+		return null;
+	}
+	public void modifyPublisherr(String publisherName, String newpublisherName) {
+		for(int i = 0; i < authors.size(); i ++) {
+			if(authors.get(i).getName().equals(publisherName)) {
+				authors.get(i).setName(newpublisherName);
+			}
+		}
+	}
+
+		
 	public String printPublisherList() {
 		String str = "";
 		for(int i =0 ; i < publishers.size(); i ++) {
 			str += "PublisherID: " + publishers.get(i).getPublisherID() + "\n";
 			str += "PublisherName: " + publishers.get(i).getPublisherName() +  "\n";
-
 			str += "\n";
 		}
 		return str;
 	}
-	public void addPublisher(String publisherName) {
-		
-	}
+
 
 	
 }
