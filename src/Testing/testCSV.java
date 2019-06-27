@@ -34,7 +34,7 @@ public class testCSV {
 		csvWriter.flush();  
 		csvWriter.close();  
 		
-		//getting the data
+		//getting the data from file
 		String row;
 		BufferedReader csvReader = new BufferedReader(new FileReader("book.csv"));  
 		while ((row = csvReader.readLine()) != null) {  
