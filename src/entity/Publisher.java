@@ -1,18 +1,18 @@
 package entity;
 
 public class Publisher {
-	private long publisherID;
+	private int publisherID;
 	private String publisherName;
 	
-	public Publisher(long publisherID, String publisherName) {
+	public Publisher(int publisherID, String publisherName) {
 		super();
 		this.publisherID = publisherID;
 		this.publisherName = publisherName;
 	}
-	public long getPublisherID() {
+	public int getPublisherID() {
 		return publisherID;
 	}
-	public void setPublisherID(long publisherID) {
+	public void setPublisherID(int publisherID) {
 		this.publisherID = publisherID;
 	}
 	public String getPublisherName() {

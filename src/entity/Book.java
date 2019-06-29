@@ -1,23 +1,23 @@
 package entity;
 
 public class Book {
-	private long bookID;
+	private int bookID;
 	private String bookName;
-	private long authorID;
-	private long publisherID;
+	private int authorID;
+	private int publisherID;
 	
 
-	public Book(long bookID, String bookName, long authorID, long publisherID) {
+	public Book(int bookID, String bookName, int authorID, int publisherID) {
 		super();
 		this.bookID = bookID;
 		this.bookName = bookName;
 		this.authorID = authorID;
 		this.publisherID = publisherID;
 	}
-	public long getBookID() {
+	public int getBookID() {
 		return bookID;
 	}
-	public void setBookID(long bookID) {
+	public void setBookID(int bookID) {
 		this.bookID = bookID;
 	}
 	public String getBookName() {
@@ -26,16 +26,16 @@ public class Book {
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
-	public long getAuthorID() {
+	public int getAuthorID() {
 		return authorID;
 	}
-	public void setAuthorID(long authorID) {
+	public void setAuthorID(int authorID) {
 		this.authorID = authorID;
 	}
-	public long getPublisherID() {
+	public int getPublisherID() {
 		return publisherID;
 	}
-	public void setPublisherID(long publisherID) {
+	public void setPublisherID(int publisherID) {
 		this.publisherID = publisherID;
 	}
 
