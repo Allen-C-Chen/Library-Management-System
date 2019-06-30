@@ -35,6 +35,8 @@ public class LMSMenu {
 			"What is the author name?";
 	public final static String PUBLISHERNAMEQUESTION = 
 			"What is the publisher name?";
+	public final static String WHATISNEWNAME = 
+			"What is the new name?";
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -61,14 +63,14 @@ public class LMSMenu {
 						
 						System.out.println(PUBLISHERNAMEQUESTION);
 						String publisherName = scan.nextLine();
-
+						lib.addBook(bookName, authorName, publisherName);
 						//add operation
 					}
 					if(innerMenuChoice == 2) { //remove
 						System.out.println(REMOVEMENU);
 						System.out.println(BOOKNAMEQUESTION);
 						String bookName = scan.nextLine();
-
+						lib.removePublisherAndAuthorsByBook(bookName);
 						//perform remove
 						//maybe do if
 					}
@@ -76,7 +78,7 @@ public class LMSMenu {
 						System.out.println(RETRIEVEMENU);
 						System.out.println(BOOKNAMEQUESTION);
 						String bookName = scan.nextLine();
-						
+						System.out.println(lib.retrieveBook(bookName).getBookName());
 						//retrieve
 						//display
 					}
@@ -84,6 +86,9 @@ public class LMSMenu {
 						System.out.println(UPDATEMENU);
 						System.out.println(BOOKNAMEQUESTION);
 						String bookName = scan.nextLine();
+						System.out.println(WHATISNEWNAME);
+						String newBookName = scan.nextLine();
+						lib.updateBook(bookName, newBookName);
 						
 						//update
 					}
@@ -100,13 +105,14 @@ public class LMSMenu {
 						System.out.println(ADDMENU);
 						System.out.println(AUTHORNAMEQUESTION);
 						String authorName = scan.nextLine();
+						lib.addAuthors(authorName);
 
 					}
 					if(innerMenuChoice == 2) { //remove
 						System.out.println(REMOVEMENU);
 						System.out.println(AUTHORNAMEQUESTION);
 						String authorName = scan.nextLine();
-
+						lib.removeBooksAndPublishersByAuthors(authorName);
 						//perform remove
 						//maybe do if
 					}
@@ -114,7 +120,7 @@ public class LMSMenu {
 						System.out.println(RETRIEVEMENU);
 						System.out.println(AUTHORNAMEQUESTION);
 						String authorName = scan.nextLine();
-						
+						lib.retrieveAuthor(authorName);
 						//retrieve
 						//display
 					}
@@ -122,7 +128,9 @@ public class LMSMenu {
 						System.out.println(UPDATEMENU);
 						System.out.println(AUTHORNAMEQUESTION);
 						String authorName = scan.nextLine();
-						
+						System.out.println(WHATISNEWNAME);
+						String newAuthorName = scan.next();
+						lib.updateAuthor(authorName, newAuthorName);
 						//update
 					}
 
@@ -139,13 +147,13 @@ public class LMSMenu {
 						System.out.println(ADDMENU);
 						System.out.println(PUBLISHERNAMEQUESTION);
 						String publisherName = scan.nextLine();
-
+						lib.addPublishers(publisherName);
 					}
 					if(innerMenuChoice == 2) { //remove
 						System.out.println(REMOVEMENU);
 						System.out.println(PUBLISHERNAMEQUESTION);
 						String publisherName = scan.nextLine();
-
+						lib.removeBooksAndAuthorsByPublisher(publisherName);
 						//perform remove
 						//maybe do if
 					}
@@ -153,7 +161,7 @@ public class LMSMenu {
 						System.out.println(RETRIEVEMENU);
 						System.out.println(PUBLISHERNAMEQUESTION);
 						String publisherName = scan.nextLine();
-						
+						System.out.println(lib.retrievePublisher(publisherName).getPublisherName());
 						//retrieve
 						//display
 					}
@@ -161,7 +169,9 @@ public class LMSMenu {
 						System.out.println(UPDATEMENU);
 						System.out.println(PUBLISHERNAMEQUESTION);
 						String publisherName = scan.nextLine();
-						
+						System.out.println(WHATISNEWNAME);
+						String newPublisherName = scan.next();
+						lib.updatePublisher(publisherName, newPublisherName);
 						//update
 					}
 

@@ -105,17 +105,22 @@ public class LMSDoa {
 
 		return authors;
 	}
-	public void uploadAuthorDataBase(List<Author> authors ) throws IOException {
-
-		FileWriter csvWriter = new FileWriter("author.csv");  
-	
-		for (Author rowData : authors) {  
-			csvWriter.append(rowData.getAuthorID() + ",");
-			csvWriter.append(rowData.getName() + ",");
-		    csvWriter.append("\n");
-		}
-		csvWriter.flush();  
-		csvWriter.close();  
+	public void uploadAuthorDataBase(List<Author> authors ) {
+		
+		FileWriter csvWriter;
+		try {
+			csvWriter = new FileWriter("author.csv");  
+			for (Author rowData : authors) {  
+				csvWriter.append(rowData.getAuthorID() + ",");
+				csvWriter.append(rowData.getName() + ",");
+			    csvWriter.append("\n");
+			}
+			csvWriter.flush();  
+			csvWriter.close();  
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	}
 	
 	//publisher doas
@@ -150,17 +155,22 @@ public class LMSDoa {
 
 		return publishers;
 	}
-	public void uploadPublisherDataBase(List<Publisher> publishers) throws IOException {
-		FileWriter csvWriter = new FileWriter("author.csv");  
 	
-		for (Publisher rowData : publishers) {  
-			csvWriter.append(rowData.getPublisherID() + ",");
-			csvWriter.append(rowData.getPublisherName() + ",");
-		    csvWriter.append("\n");
-		}
-		csvWriter.flush();  
-		csvWriter.close();  
-
+	public void uploadPublisherDataBase(List<Publisher> publishers) {
+		FileWriter csvWriter;
+		try {
+			csvWriter = new FileWriter("publisher.csv");  
+			for (Publisher rowData : publishers) {  
+				csvWriter.append(rowData.getPublisherID() + ",");
+				csvWriter.append(rowData.getPublisherName() + ",");
+			    csvWriter.append("\n");
+			}
+			csvWriter.flush();  
+			csvWriter.close();  
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	}
 
 }

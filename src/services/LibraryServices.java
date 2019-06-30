@@ -1,6 +1,7 @@
 package services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import BookDOA.LMSDoa;
@@ -15,11 +16,14 @@ public class LibraryServices {
 	private LMSDoa library;
 	public LibraryServices()  { //fix thro wexception later
 		library = new LMSDoa();
+		//books = new ArrayList<>();
 		books = library.loadBookDataBase();
+		//authors = new ArrayList<>();
 		authors = library.loadAuthorDataBase();
+		//publishers = new ArrayList<>();
 		publishers = library.loadPublisherDataBase();
 	}
-	public void upload() throws IOException { //fix throw execption later
+	public void upload() { //fix throw execption later
 		library.uploadBookDataBase(books);  
 		library.uploadAuthorDataBase(authors);
 		library.uploadPublisherDataBase(publishers);
@@ -30,16 +34,17 @@ public class LibraryServices {
 		int firstBookIndex = findFirstBookIndex();
 		int firstAuthorIndex = findFirstAuthorIndex();
 		int firstPublisherIndex = findFirstPublisherIndex();
-		books.add(new Book(firstBookIndex, bookName, firstAuthorIndex, firstPublisherIndex));
+		books.add(firstBookIndex, new Book(firstBookIndex, bookName, firstAuthorIndex, firstPublisherIndex));
 		addAuthors(authorName);
+		addPublishers(publisherName);
 	}
 	public void addAuthors(String authorName) {
 		int firstAuthorIndex = findFirstAuthorIndex();
-		authors.add(new Author(firstAuthorIndex, authorName));
+		authors.add(firstAuthorIndex,new Author(firstAuthorIndex, authorName));
 	}
 	public void addPublishers(String publisherName) {
 		int firstPublisherIndex = findFirstPublisherIndex();
-		publishers.add(new Publisher(firstPublisherIndex, publisherName));
+		publishers.add(firstPublisherIndex, new Publisher(firstPublisherIndex, publisherName));
 	}
 	//three retrieve fucntions
 	public Book retrieveBook(String bookName) {
@@ -60,7 +65,6 @@ public class LibraryServices {
 	}
 	public Publisher retrievePublisher(String publisherName) {
 		for(int i = 0; i < publishers.size(); i ++) {
-			System.out.println(publishers.get(i).getPublisherName());
 			if(publishers.get(i).getPublisherName().equals(publisherName)) {
 				return publishers.get(i);
 			}
@@ -69,31 +73,41 @@ public class LibraryServices {
 	}
 	//update
 	public void updateBook(String bookName, String newBookName) {
+		String str = "not";
+
 		for(int i = 0; i < books.size(); i ++) {
 			if(books.get(i).getBookName().equals(bookName)) {
 				books.get(i).setBookName(newBookName);
-				
+				str = "";
 			}
 		}
-	
+		System.out.println("Book has " + str + " updated");
+
 	}
 	public void updateAuthor(String authorName, String newAuthorName) {
+		String str = "not";
+
 		for(int i = 0; i < authors.size(); i ++) {
 			if(authors.get(i).getName().equals(authorName)) {
 				authors.get(i).setName(newAuthorName);
+				str = "";
 			}
 		}
-	
+		System.out.println("Author has " + str + " updated");
+
 	}
-	public void updatePublisher(String publisherName, String newpublisherName) {
+	public void updatePublisher(String publisherName, String newPublisherName) {
+		String str = "not";
 		for(int i = 0; i < authors.size(); i ++) {
-			if(authors.get(i).getName().equals(publisherName)) {
-				authors.get(i).setName(newpublisherName);
+			if(publishers.get(i).getPublisherName().equals(publisherName)) {
+				publishers.get(i).setPublisherName(newPublisherName);
+				str = "";
 			}
 		}
+		System.out.println("Publisher has " + str + " updated");
 	}	
 	//Simple/helper remove
-	public void removeBook(String bookName) { //maybe return book removed
+	private void removeBook(String bookName) { //maybe return book removed
 		for(int i = 0; i < books.size(); i ++) {
 			if(bookName.equals(books.get(i).getBookName())) {
 				books.remove(i);
@@ -101,7 +115,7 @@ public class LibraryServices {
 			}
 		}
 	}
-	public void removeAuthors(int tempAuthorID) {
+	private void removeAuthors(int tempAuthorID) {
 		for(int i = 0; i < authors.size(); i ++) {
 			if(authors.get(i).getAuthorID() ==  tempAuthorID) {
 				authors.remove(i);
@@ -110,7 +124,7 @@ public class LibraryServices {
 		}	
 	}
 	
-	public void removePublisher(int tempPublisherID) {
+	private void removePublisher(int tempPublisherID) {
 		for(int i = 0; i < publishers.size(); i ++) {
 			if(tempPublisherID == publishers.get(i).getPublisherID()) {
 				publishers.remove(i);
@@ -125,12 +139,7 @@ public class LibraryServices {
 		for(int i = 0; i < books.size(); i ++) {
 			if(books.get(i).getAuthorID() == authorID) {
 				int tempPublisherID = books.get(i).getPublisherID();
-				for(int j = 0; j < publishers.size(); j ++) {
-					if(tempPublisherID == publishers.get(j).getPublisherID()) {
-						publishers.remove(j);
-						j--;
-					}
-				}
+				removePublisher(tempPublisherID);
 				books.remove(i);
 				i--;
 			}
@@ -141,7 +150,6 @@ public class LibraryServices {
 		int publisherID = retrievePublisher(publisherName).getPublisherID();
 		for(int i = 0; i < books.size(); i ++) {
 			if(books.get(i).getPublisherID() == publisherID) {
-				System.out.println("SDFJSDFFDFDSFSDDFSSSSSSSSSSSSSSSSSSSSSSSSS");
 				int tempAuthorID = books.get(i).getAuthorID();
 				removeAuthors(tempAuthorID);
 				
@@ -157,6 +165,7 @@ public class LibraryServices {
 		Book tempBook = retrieveBook(bookName);
 		
 		int tempPublisherID = tempBook.getPublisherID();
+		System.out.println("pub ID" + tempPublisherID);
 		removePublisher(tempPublisherID);
 		int tempAuthorID = tempBook.getAuthorID();
 		
