@@ -3,6 +3,9 @@
 
 import java.util.Scanner;
 
+import entity.Author;
+import entity.Book;
+import entity.Publisher;
 import services.LibraryServices;
 
 public class LMSMenu {
@@ -47,12 +50,15 @@ public class LMSMenu {
 		LibraryServices lib = new LibraryServices();
 		while(defaultMenuChoice < 4) {
 			System.out.println(DEFAULTMENU);
-			defaultMenuChoice = scan.nextInt();
+			String tempChoice = scan.nextLine();
+			defaultMenuChoice = checkString(tempChoice,4); //to fix nextLine error
 			if(defaultMenuChoice == 1) {
 				while (innerMenuChoice < 5) {
 					System.out.println("Hello you selected Book, please select one");
 					System.out.println(MODFICATIONMENU);
-					innerMenuChoice = scan.nextInt();
+					String innerTempChoice = scan.nextLine();
+					innerMenuChoice = checkString(innerTempChoice,5); //to fix nextLine error
+					
 					if(innerMenuChoice == 1) { //add
 						System.out.println(ADDMENU);
 						System.out.println(BOOKNAMEQUESTION);
@@ -78,9 +84,18 @@ public class LMSMenu {
 						System.out.println(RETRIEVEMENU);
 						System.out.println(BOOKNAMEQUESTION);
 						String bookName = scan.nextLine();
-						System.out.println(lib.retrieveBook(bookName).getBookName());
+						Book newBook = lib.retrieveBook(bookName);
 						//retrieve
 						//display
+						
+						if(newBook == null) {
+							System.out.println("Book not found");
+						}
+						else {
+							System.out.println("book is found!" + newBook.getBookName());
+
+						}
+							
 					}
 					if(innerMenuChoice == 4) { //update
 						System.out.println(UPDATEMENU);
@@ -89,7 +104,8 @@ public class LMSMenu {
 						System.out.println(WHATISNEWNAME);
 						String newBookName = scan.nextLine();
 						lib.updateBook(bookName, newBookName);
-						
+						System.out.println("Your item has been updated!");
+
 						//update
 					}
 
@@ -100,7 +116,9 @@ public class LMSMenu {
 				while (innerMenuChoice < 5) {
 					System.out.println("Hello you selected Authors, please select one");
 					System.out.println(MODFICATIONMENU);
-					innerMenuChoice = scan.nextInt();
+
+					String innerTempChoice = scan.nextLine();
+					innerMenuChoice = checkString(innerTempChoice,5); //to fix nextLine error
 					if(innerMenuChoice == 1) { //add
 						System.out.println(ADDMENU);
 						System.out.println(AUTHORNAMEQUESTION);
@@ -120,7 +138,13 @@ public class LMSMenu {
 						System.out.println(RETRIEVEMENU);
 						System.out.println(AUTHORNAMEQUESTION);
 						String authorName = scan.nextLine();
-						lib.retrieveAuthor(authorName);
+						Author newAuthor= lib.retrieveAuthor(authorName);
+						if(newAuthor == null) {
+							System.out.println("Author not found");
+						}
+						else {
+							System.out.println("Your author is: " + newAuthor.getName());
+						}
 						//retrieve
 						//display
 					}
@@ -129,9 +153,11 @@ public class LMSMenu {
 						System.out.println(AUTHORNAMEQUESTION);
 						String authorName = scan.nextLine();
 						System.out.println(WHATISNEWNAME);
-						String newAuthorName = scan.next();
+						String newAuthorName = scan.nextLine();
 						lib.updateAuthor(authorName, newAuthorName);
 						//update
+						System.out.println("Your item has been updated!");
+
 					}
 
 				}
@@ -142,7 +168,9 @@ public class LMSMenu {
 				while (innerMenuChoice < 5) {
 					System.out.println("Hello you selected Publishers, please select one");
 					System.out.println(MODFICATIONMENU);
-					innerMenuChoice = scan.nextInt();
+
+					String innerTempChoice = scan.nextLine();
+					innerMenuChoice = checkString(innerTempChoice,5); //to fix nextLine error
 					if(innerMenuChoice == 1) { //add
 						System.out.println(ADDMENU);
 						System.out.println(PUBLISHERNAMEQUESTION);
@@ -154,6 +182,7 @@ public class LMSMenu {
 						System.out.println(PUBLISHERNAMEQUESTION);
 						String publisherName = scan.nextLine();
 						lib.removeBooksAndAuthorsByPublisher(publisherName);
+						
 						//perform remove
 						//maybe do if
 					}
@@ -161,7 +190,15 @@ public class LMSMenu {
 						System.out.println(RETRIEVEMENU);
 						System.out.println(PUBLISHERNAMEQUESTION);
 						String publisherName = scan.nextLine();
-						System.out.println(lib.retrievePublisher(publisherName).getPublisherName());
+						Publisher newPublisher = lib.retrievePublisher(publisherName);
+						if(newPublisher == null) {
+							System.out.println("Author not found");
+						}
+						else {
+							System.out.println("Your publihser is " + newPublisher.getPublisherName());
+
+						}
+							
 						//retrieve
 						//display
 					}
@@ -170,8 +207,9 @@ public class LMSMenu {
 						System.out.println(PUBLISHERNAMEQUESTION);
 						String publisherName = scan.nextLine();
 						System.out.println(WHATISNEWNAME);
-						String newPublisherName = scan.next();
+						String newPublisherName = scan.nextLine();
 						lib.updatePublisher(publisherName, newPublisherName);
+						System.out.println("Your item has been updated!");
 						//update
 					}
 
@@ -181,6 +219,19 @@ public class LMSMenu {
 			}
 			
 		}
+		System.out.println(lib.printBookList());
+		//lib.upload();
 	}
-
+	public static int checkString(String str, int max) {
+		try {
+			if(str.length() < 2 && (Character.getNumericValue(str.charAt(0)) > 0 && Character.getNumericValue(str.charAt(0)) <=max )) {
+				return Integer.parseInt(str);
+			}
+		}
+		catch (NumberFormatException nfe) {
+			System.out.println("You did not enter a number");
+		}
+		System.out.println("Invalid Choice, Try again ^_^ ");
+		return 0;
+	}
 }

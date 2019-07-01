@@ -23,6 +23,12 @@ public class LibraryServices {
 		//publishers = new ArrayList<>();
 		publishers = library.loadPublisherDataBase();
 	}
+	public void newLibrary() { //testing only
+		books = new ArrayList<>();
+
+		authors = new ArrayList<>();
+		publishers = new ArrayList<>();
+	}
 	public void upload() { //fix throw execption later
 		library.uploadBookDataBase(books);  
 		library.uploadAuthorDataBase(authors);
@@ -110,7 +116,8 @@ public class LibraryServices {
 	private void removeBook(String bookName) { //maybe return book removed
 		for(int i = 0; i < books.size(); i ++) {
 			if(bookName.equals(books.get(i).getBookName())) {
-				books.remove(i);
+				System.out.println(books.remove(i).getBookName() + " has been removed");
+
 				i--;
 			}
 		}
@@ -118,7 +125,8 @@ public class LibraryServices {
 	private void removeAuthors(int tempAuthorID) {
 		for(int i = 0; i < authors.size(); i ++) {
 			if(authors.get(i).getAuthorID() ==  tempAuthorID) {
-				authors.remove(i);
+				System.out.println(authors.remove(i).getName() + " has been removed");
+
 				i--;
 			}
 		}	
@@ -127,7 +135,8 @@ public class LibraryServices {
 	private void removePublisher(int tempPublisherID) {
 		for(int i = 0; i < publishers.size(); i ++) {
 			if(tempPublisherID == publishers.get(i).getPublisherID()) {
-				publishers.remove(i);
+				
+				System.out.println(publishers.remove(i).getPublisherName() + " has been removed");
 				i--;
 			}
 		}		
@@ -165,7 +174,6 @@ public class LibraryServices {
 		Book tempBook = retrieveBook(bookName);
 		
 		int tempPublisherID = tempBook.getPublisherID();
-		System.out.println("pub ID" + tempPublisherID);
 		removePublisher(tempPublisherID);
 		int tempAuthorID = tempBook.getAuthorID();
 		
